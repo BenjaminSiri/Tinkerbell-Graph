@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author benjaminsiri
- *
- */
-module TinkerBellGraph {
-}
