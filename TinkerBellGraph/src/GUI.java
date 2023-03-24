@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 
@@ -8,8 +9,10 @@ public class GUI extends JFrame {
 	GraphPanel gPanel;
 	JPanel topPanel;
 	JPanel bottomPanel;
-	JLabel XLabel;
-	JLabel YLabel;
+	JLabel xEquationLabel;
+	JLabel yEquationLabel;
+	
+	JLabel statusLabel;
 	
 	JPanel fieldsPanel;
 	JLabel aLabel;
@@ -21,39 +24,50 @@ public class GUI extends JFrame {
 	JLabel dLabel;
 	JTextField dTextField;
 	
+	JPanel xyPanel;
+	JLabel xLabel;
+	JTextField xTextField;
+	JLabel yLabel;
+	JTextField yTextField;
+	
 	JButton runButton;
 
 	public GUI() {
-		this.setTitle("Tinker Bell Graph");
+		this.setTitle("Tinkerbell Graph");
 		this.setSize(700, 600);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		
+		// --- TOP PANEL ---
 		topPanel = new JPanel(new GridLayout(2,0));
 		add(topPanel, BorderLayout.NORTH);
-		XLabel = new JLabel("X(next) = (x*x) - (y*y) + (a*x) + (b*y)");
-		YLabel = new JLabel("Y(next) = (2*x*y) + (c*x) + (d*y)");
-		topPanel.add(XLabel);
-		topPanel.add(YLabel);
+		xEquationLabel = new JLabel("X(next) = (x*x) - (y*y) + (a*x) + (b*y)");
+		yEquationLabel = new JLabel("Y(next) = (2*x*y) + (c*x) + (d*y)");
+		topPanel.add(xEquationLabel);
+		topPanel.add(yEquationLabel);
 		
+		// --- DRAW PANEL ---
 		gPanel = new GraphPanel();
 		add(gPanel,BorderLayout.CENTER);
 		
-		bottomPanel = new JPanel(new GridLayout(2,0));
+		// --- BOTTOM PANEL ---
+		bottomPanel = new JPanel(new GridLayout(4,0));
 		add(bottomPanel, BorderLayout.SOUTH);
 		fieldsPanel = new JPanel(new FlowLayout());
-		bottomPanel.add(fieldsPanel);
+		xyPanel = new JPanel(new FlowLayout());
+		
+		statusLabel = new JLabel("Success!");
+		bottomPanel.add(statusLabel);
+		
 		aLabel = new JLabel("a:");
 		bLabel = new JLabel("b:");
 		cLabel = new JLabel("c:");
-		dLabel = new JLabel("d:");
-		
+		dLabel = new JLabel("d:");		
 		aTextField = new JTextField(".9",3);
-		bTextField = new JTextField("-.6013",3);
+		bTextField = new JTextField("-.601",3);
 		cTextField = new JTextField("2",3);
-		dTextField = new JTextField(".5",3);
-		
+		dTextField = new JTextField(".5",3);		
 		fieldsPanel.add(aLabel);
 		fieldsPanel.add(aTextField);
 		fieldsPanel.add(bLabel);
@@ -62,8 +76,21 @@ public class GUI extends JFrame {
 		fieldsPanel.add(cTextField);
 		fieldsPanel.add(dLabel);
 		fieldsPanel.add(dTextField);
+		bottomPanel.add(fieldsPanel);
 		
+		xLabel = new JLabel("initial x:");
+		yLabel = new JLabel("initial y:");
+		xTextField = new JTextField("-.72",3);
+		yTextField = new JTextField("-.64",3);
+		xyPanel.add(xLabel);
+		xyPanel.add(xTextField);
+		xyPanel.add(yLabel);
+		xyPanel.add(yTextField);
+		bottomPanel.add(xyPanel);
+		
+		ButtonHandler bHandler = new ButtonHandler();		
 		runButton = new JButton("Run");
+		runButton.addActionListener(bHandler);
 		bottomPanel.add(runButton);
 		
 		this.setVisible(true);
@@ -81,7 +108,12 @@ public class GUI extends JFrame {
 			int height = 400;
 			int width = (int)(ratio * height);
 			
-			TBFunction f = new TBFunction(-.72,-.64,.9,-.6013,2,.5,width,height,4000);
+			double a = Double.parseDouble(aTextField.getText());
+			double b = Double.parseDouble(bTextField.getText());
+			double c = Double.parseDouble(cTextField.getText());
+			double d = Double.parseDouble(dTextField.getText());
+			
+			TBFunction f = new TBFunction(-.72,-.64,a,-.601,2,.5,width,height, 7000);
 			boolean[][] array = f.toArray();
 			
 			for(int i = 0; i < width; i++) {
@@ -95,6 +127,16 @@ public class GUI extends JFrame {
 						g2.fillRect(i,j,1,1);
 					}
 				}
+			}
+		}
+	}
+	
+	private class ButtonHandler implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getActionCommand() == "Run") {
+				gPanel.repaint();
+				System.out.println("Repainted!!!");
 			}
 		}
 	}

@@ -27,12 +27,9 @@ public class TBFunction {
 		return addPoint(xStart, yStart, array, generations);
 	}
 	
-	public boolean[][] addPoint(double x, double y, boolean[][] arr, int gen) {
-		
-		//System.out.println(String.format("(%f,%f)", x,y));
+	public boolean[][] addPoint(double x, double y, boolean[][] arr, int gen) {		
 		double tempX = (x*100)+(sizeX/2);
 		double tempY = (y*100)+(sizeY/2);
-		//System.out.println(String.format("Temp: (%f,%f)", tempX,tempY));
 		
 		if (gen < 0) {
 			return arr;
@@ -40,7 +37,7 @@ public class TBFunction {
 		else {
 			gen--;
 			if(tempX > 0 && tempX < sizeX-1 && tempY > 0 && tempY < sizeY-1) {
-				arr[(int)tempX][(int)tempY] = true;
+				arr[(int)tempX][sizeY-1-(int)tempY] = true;
 			}
 			double nextX = (x*x) - (y*y) + (a*x) + (b*y);
 			double nextY = (2*x*y) + (c*x) + (d*y);
