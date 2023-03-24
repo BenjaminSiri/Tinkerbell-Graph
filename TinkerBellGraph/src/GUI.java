@@ -32,7 +32,7 @@ public class GUI extends JFrame {
 			int height = 400;
 			int width = (int)(ratio * height);
 			
-			Function f = new Function(.5,0,width,height);
+			TBFunction f = new TBFunction(-.72,-.64,.9,-.6013,2,.5,width,height,100);
 			boolean[][] array = f.toArray();
 			
 			for(int i = 0; i < width; i++) {
