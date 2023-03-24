@@ -27,8 +27,26 @@ public class GUI extends JFrame {
 			super.paint(g);
 			Graphics2D g2 = (Graphics2D)g;
 			
-			g2.setColor(Color.BLACK);
-			g2.fillRect(0,0,500,400);
+			
+			double ratio = 16.0/9.0;
+			int height = 400;
+			int width = (int)(ratio * height);
+			
+			Function f = new Function(.5,0,width,height);
+			boolean[][] array = f.toArray();
+			
+			for(int i = 0; i < width; i++) {
+				for(int j = 0; j < height; j++) {
+					if(array[i][j]) {
+						g2.setColor(Color.WHITE);
+						g2.fillRect(i-1,j-1,2,2);
+					}
+					else {
+						g2.setColor(Color.BLACK);
+						g2.fillRect(i,j,1,1);
+					}
+				}
+			}
 		}
 	}
 	
