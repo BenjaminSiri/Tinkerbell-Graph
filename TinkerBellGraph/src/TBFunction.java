@@ -28,9 +28,11 @@ public class TBFunction {
 	}
 	
 	public boolean[][] addPoint(double x, double y, boolean[][] arr, int gen) {
-		System.out.println(String.format("(%f,%f)", x,y));
-		double tempX = x*500;
-		double tempY = y*500;
+		
+		//System.out.println(String.format("(%f,%f)", x,y));
+		double tempX = (x*100)+(sizeX/2);
+		double tempY = (y*100)+(sizeY/2);
+		//System.out.println(String.format("Temp: (%f,%f)", tempX,tempY));
 		
 		if (gen < 0) {
 			return arr;
