@@ -112,8 +112,11 @@ public class GUI extends JFrame {
 			double b = Double.parseDouble(bTextField.getText());
 			double c = Double.parseDouble(cTextField.getText());
 			double d = Double.parseDouble(dTextField.getText());
+			double x = Double.parseDouble(xTextField.getText());
+			double y = Double.parseDouble(yTextField.getText());
+
 			
-			TBFunction f = new TBFunction(-.72,-.64,a,-.601,2,.5,width,height, 7000);
+			TBFunction f = new TBFunction(x,y,a,b,c,d,width,height, 5000);
 			boolean[][] array = f.toArray();
 			
 			for(int i = 0; i < width; i++) {
@@ -135,8 +138,12 @@ public class GUI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getActionCommand() == "Run") {
+				// ERROR CATCHING
+				if(Double.parseDouble(xTextField.getText()) == 0 && Double.parseDouble(yTextField.getText()) == 0) {
+					statusLabel.setText("WARNING: Setting x and y to 0 will result in a point at (0,0).");
+				}
 				gPanel.repaint();
-				System.out.println("Repainted!!!");
+				statusLabel.setText("Success!");
 			}
 		}
 	}
