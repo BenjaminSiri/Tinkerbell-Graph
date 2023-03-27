@@ -24,6 +24,7 @@ public class TBFunction {
 	
 	boolean[][] toArray(){
 		boolean[][] array = new boolean[sizeX][sizeY];
+		array = addAxis(array);
 		return addPoint(xStart, yStart, array, generations);
 	}
 	
@@ -43,6 +44,17 @@ public class TBFunction {
 			double nextY = (2*x*y) + (c*x) + (d*y);
 			return addPoint(nextX, nextY, arr, gen);
 		}
+	}
+	
+	public boolean[][] addAxis(boolean[][] arr){
+		for (int i=0; i < sizeX; i++) {
+			for (int j=0; j < sizeY; j++) {
+				if(i == (sizeX/2) || j == (sizeY/2)) {
+					arr[i][j] = true;
+				}
+			}
+		}
+		return arr;
 	}
 
 }
