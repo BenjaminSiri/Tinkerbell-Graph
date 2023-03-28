@@ -9,8 +9,9 @@ public class TBFunction {
 	private int sizeX;
 	private int sizeY;
 	private int generations;
+	private int zoom;
 	
-	public TBFunction(double xStart, double yStart, double a, double b, double c, double d, int sizeX, int sizeY, int generations) {
+	public TBFunction(double xStart, double yStart, double a, double b, double c, double d, int sizeX, int sizeY, int generations, int zoom) {
 		this.xStart = xStart;
 		this.yStart = yStart;
 		this.a = a;
@@ -20,6 +21,7 @@ public class TBFunction {
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
 		this.generations = generations;
+		this.zoom = zoom;
 	}
 	
 	boolean[][] toArray(){
@@ -29,8 +31,8 @@ public class TBFunction {
 	}
 	
 	public boolean[][] addPoint(double x, double y, boolean[][] arr, int gen) {		
-		double tempX = (x*100)+(sizeX/2);
-		double tempY = (y*100)+(sizeY/2);
+		double tempX = (x*zoom)+(sizeX/2);
+		double tempY = (y*zoom)+(sizeY/2);
 		
 		if (gen < 0) {
 			return arr;

@@ -29,6 +29,8 @@ public class GUI extends JFrame {
 	JTextField xTextField;
 	JLabel yLabel;
 	JTextField yTextField;
+	JLabel zoomLabel;
+	JTextField zoomTextField;
 	
 	JButton runButton;
 
@@ -86,6 +88,10 @@ public class GUI extends JFrame {
 		xyPanel.add(xTextField);
 		xyPanel.add(yLabel);
 		xyPanel.add(yTextField);
+		zoomLabel = new JLabel("Zoom:");
+		zoomTextField = new JTextField("100", 4);
+		xyPanel.add(zoomLabel);
+		xyPanel.add(zoomTextField);
 		bottomPanel.add(xyPanel);
 		
 		ButtonHandler bHandler = new ButtonHandler();		
@@ -114,9 +120,10 @@ public class GUI extends JFrame {
 			double d = Double.parseDouble(dTextField.getText());
 			double x = Double.parseDouble(xTextField.getText());
 			double y = Double.parseDouble(yTextField.getText());
-
 			
-			TBFunction f = new TBFunction(x,y,a,b,c,d,width,height, 5000);
+			int zoomx = Integer.parseInt(zoomTextField.getText());
+			
+			TBFunction f = new TBFunction(x,y,a,b,c,d,width,height, 5000, zoomx);
 			boolean[][] array = f.toArray();
 			
 			for(int i = 0; i < width; i++) {
