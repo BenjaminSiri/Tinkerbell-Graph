@@ -12,7 +12,13 @@ public class GUI extends JFrame {
 	JLabel xEquationLabel;
 	JLabel yEquationLabel;
 	
-	JLabel statusLabel;
+	JPanel transformationPanel;
+	JLabel zoomLabel;
+	JTextField zoomTextField;
+	JLabel xtranslateLabel;
+	JTextField xtranslateTextField;
+	JLabel ytranslateLabel;
+	JTextField ytranslateTextField;
 	
 	JPanel fieldsPanel;
 	JLabel aLabel;
@@ -29,8 +35,7 @@ public class GUI extends JFrame {
 	JTextField xTextField;
 	JLabel yLabel;
 	JTextField yTextField;
-	JLabel zoomLabel;
-	JTextField zoomTextField;
+
 	
 	JButton runButton;
 
@@ -58,9 +63,21 @@ public class GUI extends JFrame {
 		add(bottomPanel, BorderLayout.SOUTH);
 		fieldsPanel = new JPanel(new FlowLayout());
 		xyPanel = new JPanel(new FlowLayout());
+		transformationPanel = new JPanel(new FlowLayout());
 		
-		statusLabel = new JLabel("Success!");
-		bottomPanel.add(statusLabel);
+		zoomLabel = new JLabel("Zoom:");
+		zoomTextField = new JTextField("100", 4);
+		xtranslateLabel = new JLabel("X Translate:");
+		xtranslateTextField = new JTextField("0", 4);
+		ytranslateLabel = new JLabel("Y Translate:");
+		ytranslateTextField = new JTextField("0", 4);
+		transformationPanel.add(zoomLabel);
+		transformationPanel.add(zoomTextField);
+		transformationPanel.add(xtranslateLabel);
+		transformationPanel.add(xtranslateTextField);
+		transformationPanel.add(ytranslateLabel);
+		transformationPanel.add(ytranslateTextField);
+		bottomPanel.add(transformationPanel);
 		
 		aLabel = new JLabel("a:");
 		bLabel = new JLabel("b:");
@@ -88,10 +105,6 @@ public class GUI extends JFrame {
 		xyPanel.add(xTextField);
 		xyPanel.add(yLabel);
 		xyPanel.add(yTextField);
-		zoomLabel = new JLabel("Zoom:");
-		zoomTextField = new JTextField("100", 4);
-		xyPanel.add(zoomLabel);
-		xyPanel.add(zoomTextField);
 		bottomPanel.add(xyPanel);
 		
 		ButtonHandler bHandler = new ButtonHandler();		
@@ -122,8 +135,10 @@ public class GUI extends JFrame {
 			double y = Double.parseDouble(yTextField.getText());
 			
 			int zoomx = Integer.parseInt(zoomTextField.getText());
+			int translateX = Integer.parseInt(xtranslateTextField.getText());
+			int translateY = Integer.parseInt(ytranslateTextField.getText());
 			
-			TBFunction f = new TBFunction(x,y,a,b,c,d,width,height, 5000, zoomx);
+			TBFunction f = new TBFunction(x, y, a, b, c, d, width, height, 5000, zoomx, translateX, translateY);
 			boolean[][] array = f.toArray();
 			
 			for(int i = 0; i < width; i++) {
@@ -145,12 +160,8 @@ public class GUI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getActionCommand() == "Run") {
-				// ERROR CATCHING
-				if(Double.parseDouble(xTextField.getText()) == 0 && Double.parseDouble(yTextField.getText()) == 0) {
-					statusLabel.setText("WARNING: Setting x and y to 0 will result in a point at (0,0).");
-				}
+
 				gPanel.repaint();
-				statusLabel.setText("Success!");
 			}
 		}
 	}

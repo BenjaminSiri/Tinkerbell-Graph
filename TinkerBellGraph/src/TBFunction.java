@@ -10,8 +10,10 @@ public class TBFunction {
 	private int sizeY;
 	private int generations;
 	private int zoom;
+	private int translateX;
+	private int translateY;
 	
-	public TBFunction(double xStart, double yStart, double a, double b, double c, double d, int sizeX, int sizeY, int generations, int zoom) {
+	public TBFunction(double xStart, double yStart, double a, double b, double c, double d, int sizeX, int sizeY, int generations, int zoom, int translateX, int translateY) {
 		this.xStart = xStart;
 		this.yStart = yStart;
 		this.a = a;
@@ -22,17 +24,20 @@ public class TBFunction {
 		this.sizeY = sizeY;
 		this.generations = generations;
 		this.zoom = zoom;
+		this.translateX = translateX;
+		this.translateY = translateY;
 	}
 	
 	boolean[][] toArray(){
 		boolean[][] array = new boolean[sizeX][sizeY];
 		array = addAxis(array);
+		System.out.println("" + translateX + " " + translateY);
 		return addPoint(xStart, yStart, array, generations);
 	}
 	
-	public boolean[][] addPoint(double x, double y, boolean[][] arr, int gen) {		
-		double tempX = (x*zoom)+(sizeX/2);
-		double tempY = (y*zoom)+(sizeY/2);
+	public boolean[][] addPoint(double x, double y, boolean[][] arr, int gen) {
+		double tempX = (x*zoom)+(sizeX/2) + translateX;
+		double tempY = (y*zoom)+(sizeY/2) + translateY;
 		
 		if (gen < 0) {
 			return arr;
